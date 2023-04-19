@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>sideos Login Example</title>
+      <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+      <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+      <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+      <script>
+        const ws = new WebSocket("<%= callback_url?.replace(/http/,'ws') %>/login");
+        ws.onopen = (event) => {
+          ws.send('Hello from Login');
+        };
+        ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data)
+          if(msg.error === 0) {
+            window.location.replace("<%= callback_url %>/home");
+          } else {
+            console.log('error: ', event.data)
+          }
+        }
+      </script>
+    </head>
+    <body>
+      <header class="mui-appbar mui--z1">
+        <div class="mui-container">
+            <table>
+              <tr class="mui--appbar-height">
+                <td class="mui--text-title">RaspiLab</td>
+                <td class="mui--text-right">
+                  <ul class="mui-list--inline mui--text-body2">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Login</a></li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+        </div>
+      </header>
+      <div id="content-wrapper" class="mui--text-center">
+        <div class="mui--appbar-height"></div>
+          <br>
+          <br>
+          <div class="mui--text-display3">Login</div>
+          <br>
+          <br>
+          <div class="mui-container">
+            <div class="mui-row">
+              <div class="mui-col-md-4"></div>
+              <div class="mui-col-md-4">
+                <div class="mui-panel">
+                  Scan the QR Code to Login
+                  <br>
+                    <img src=<%= qrcode %> alt="QR Code" >
+                    <div style="margin: auto; width: 150px">
+                    <hr class="mui-divder" width="50px" align="left" style="float: left;">
+                    <h6 class="mui--text-subhead" style="margin-left: 1em; float: left;">or</h6>
+                    <hr class="mui-divder" width="50px" align="right" style="float: right;">
+                    </div>
+                    <div style="clear: both; margin: auto; width: 150px">
+                    <button data-jwt="<%= jwt_data %>" id="dawRequestCredential" style="background-color: rgb(200, 200, 200); height: 42px; border: none; border-radius: 8px; width: 150px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; color: black; opacity: 0.3;">Use sideos SAW</button>
+                    </div>
+                </div>
+              </div>
+              <div class="mui-col-md-4"></div>
+            </div>
+          </div>
+      </div>
+      <footer>
+          <div class="mui-container mui--text-center">
+            Made with ♥ by <a href="https://www.muicss.com">MUICSS</a> and <a href="https://sideos,io">sideos</a>
+          </div>
+      </footer>
+    </body>
+</html>

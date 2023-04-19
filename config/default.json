@@ -1,0 +1,14 @@
+{
+  "users": {
+      "Marcus": "SendGrid,Amazon,paypal,test"
+  },
+  "app_senders": {
+      "test": "+4915221619714",
+      "paypal": "7272",
+      "SendGrid": "AUTHMSG",
+      "Grover": "AUTHMSG",
+      "Coinsbase": "AUTHMSG",
+      "Mailchimp": "AUTHMSG",
+      "OpenAI": "AUTHMSG"
+  }
+}
